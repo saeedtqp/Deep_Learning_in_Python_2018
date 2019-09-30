@@ -13,6 +13,7 @@ NLP = spacy.load('en')
 
 
 def tokenizer(text):
+    text = re.sub(b'\u200c'.decode("utf-8", "strict"), " ", text)   # replace half-spaces with spaces
     text = re.sub(r"[\*\"“”\n\\…\+\-\/\=\(\)‘•:\[\]\|’;]", " ", str(text))
     text = re.sub(r"[ ]+", " ", text)
     text = re.sub(r"\!+", "!", text)
