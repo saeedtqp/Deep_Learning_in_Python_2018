@@ -3,10 +3,14 @@ from torch.autograd import Variable
 
 
 def to_var(x, volatile=False):
-    x = x.cuda() if torch.cuda.is_available() else x
+    if torch.cuda.is_available():
+        x = x.cuda()
     return Variable(x, volatile=volatile)
 
 
 def detach(x):
-    """ Detach hidden states from their history."""
-    return Variable(x.data) if type(x) == Variable else tuple(detach(v) for v in x)
+    """Wraps hidden states in new variables, to detach them from their history."""
+    if type(x) == Variable:
+        return Variable(x.data)
+    else:
+        return tuple(detach(v) for v in x)
