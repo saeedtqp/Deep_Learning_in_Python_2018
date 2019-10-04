@@ -23,7 +23,7 @@ def train_step(model, train_dl, criterion, optimizer, scheduler):
         
         # Starting each batch, we detach the hidden state from how it was previously produced.
         # If we didn't, the model would try backpropagating all the way to start of the dataset.
-        model.hidden = detach(model.hidden)
+#         model.hidden = detach(model.hidden)
         model.zero_grad()
         output = model(train_inputs.t())
         
